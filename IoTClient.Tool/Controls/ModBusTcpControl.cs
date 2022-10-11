@@ -1,15 +1,9 @@
 ﻿using IoTClient.Clients.Modbus;
-using IoTClient.Common.Enums;
 using MQTTnet.Client.Options;
 using MQTTnet.Extensions.ManagedClient;
 using MQTTnet.Client;
 using MQTTnet;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,9 +14,9 @@ namespace IoTClient.Tool.Controls
 {
     public partial class ModbusTcpControl : UserControl
     {
-        private IModbusClient client;
-        private IManagedMqttClient mqttClient;
-        private string clientID;
+        private IModbusClient modbus_client;
+        private IManagedMqttClient mqttClient, mqttClient2, mqttClient3, mqttClient4, mqttClient5;
+        private string clientID, clientID2, clientID3, clientID4, clientID5;
         Thread registerThread1, registerThread2, registerThread3, registerThread4, registerThread5;
         string topic1, topic2, topic3, topic4, topic5;
 
@@ -31,6 +25,10 @@ namespace IoTClient.Tool.Controls
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
             clientID = Guid.NewGuid().ToString();
+            clientID2 = Guid.NewGuid().ToString();
+            clientID3 = Guid.NewGuid().ToString();
+            clientID4 = Guid.NewGuid().ToString();
+            clientID5 = Guid.NewGuid().ToString();
             datatype_cb_1.SelectedIndex = 0;
             datatype_cb_2.SelectedIndex = 0;
             datatype_cb_3.SelectedIndex = 0;
@@ -71,36 +69,36 @@ namespace IoTClient.Tool.Controls
                 {
                     case 0:
                         if (value?.Trim() == "0")
-                            result = client.Write(address, false);
+                            result = modbus_client.Write(address, false);
                         else if (value?.Trim() == "1")
-                            result = client.Write(address, true);
+                            result = modbus_client.Write(address, true);
                         break;
                     case 1:
-                        result = client.Write(address, byte.Parse(value?.Trim()));
+                        result = modbus_client.Write(address, byte.Parse(value?.Trim()));
                         break;
                     case 2:
-                        result = client.Write(address, short.Parse(value?.Trim()));
+                        result = modbus_client.Write(address, short.Parse(value?.Trim()));
                         break;
                     case 3:
-                        result = client.Write(address, ushort.Parse(value?.Trim()));
+                        result = modbus_client.Write(address, ushort.Parse(value?.Trim()));
                         break;
                     case 4:
-                        result = client.Write(address, int.Parse(value?.Trim()));
+                        result = modbus_client.Write(address, int.Parse(value?.Trim()));
                         break;
                     case 5:
-                        result = client.Write(address, uint.Parse(value?.Trim()));
+                        result = modbus_client.Write(address, uint.Parse(value?.Trim()));
                         break;
                     case 6:
-                        result = client.Write(address, long.Parse(value?.Trim()));
+                        result = modbus_client.Write(address, long.Parse(value?.Trim()));
                         break;
                     case 7:
-                        result = client.Write(address, ulong.Parse(value?.Trim()));
+                        result = modbus_client.Write(address, ulong.Parse(value?.Trim()));
                         break;
                     case 8:
-                        result = client.Write(address, float.Parse(value?.Trim()));
+                        result = modbus_client.Write(address, float.Parse(value?.Trim()));
                         break;
                     case 9:
-                        result = client.Write(address, double.Parse(value?.Trim()));
+                        result = modbus_client.Write(address, double.Parse(value?.Trim()));
                         break;
                 }
 
@@ -117,6 +115,7 @@ namespace IoTClient.Tool.Controls
         }
         private void read(string address, int datatype, int register_index)
         {
+            IManagedMqttClient client = null;
             try
             {
                 if (string.IsNullOrWhiteSpace(address))
@@ -126,36 +125,47 @@ namespace IoTClient.Tool.Controls
                 }
                 dynamic result = null;
                 float interval = 1;
+                string topic = "";
 
                 while (true)
                 {
                     switch (register_index)
                     {
                         case 0:
+                            client = mqttClient;
+                            topic = mqtt_topic_box_1.Text?.Trim();
                             if (string.IsNullOrWhiteSpace(interval_1.Text))
                                 interval = 1;
                             else
                                 interval = float.Parse(interval_1.Text?.Trim());
                             break;
                         case 1:
+                            client = mqttClient2;
+                            topic = mqtt_topic_box_2.Text?.Trim();
                             if (string.IsNullOrWhiteSpace(interval_2.Text))
                                 interval = 1;
                             else
                                 interval = float.Parse(interval_2.Text?.Trim());
                             break;
                         case 2:
+                            client = mqttClient3;
+                            topic = mqtt_topic_box_3.Text?.Trim();
                             if (string.IsNullOrWhiteSpace(interval_3.Text))
                                 interval = 1;
                             else
                                 interval = float.Parse(interval_3.Text?.Trim());
                             break;
                         case 3:
+                            client = mqttClient4;
+                            topic = mqtt_topic_box_4.Text?.Trim();
                             if (string.IsNullOrWhiteSpace(interval_4.Text))
                                 interval = 1;
                             else
                                 interval = float.Parse(interval_4.Text?.Trim());
                             break;
                         case 4:
+                            client = mqttClient5;
+                            topic = mqtt_topic_box_5.Text?.Trim();
                             if (string.IsNullOrWhiteSpace(interval_5.Text))
                                 interval = 1;
                             else
@@ -166,41 +176,41 @@ namespace IoTClient.Tool.Controls
                     switch (datatype)
                     {
                         case 0:
-                            result = client.ReadCoil(address);
+                            result = modbus_client.ReadCoil(address);
                             break;
                         case 1:
-                            result = client.ReadDiscrete(address);
+                            result = modbus_client.ReadDiscrete(address);
                             break;
                         case 2:
-                            result = client.ReadInt16(address);
+                            result = modbus_client.ReadInt16(address);
                             break;
                         case 3:
-                            result = client.ReadUInt16(address);
+                            result = modbus_client.ReadUInt16(address);
                             break;
                         case 4:
-                            result = client.ReadInt32(address);
+                            result = modbus_client.ReadInt32(address);
                             break;
                         case 5:
-                            result = client.ReadUInt32(address);
+                            result = modbus_client.ReadUInt32(address);
                             break;
                         case 6:
-                            result = client.ReadInt64(address);
+                            result = modbus_client.ReadInt64(address);
                             break;
                         case 7:
-                            result = client.ReadUInt64(address);
+                            result = modbus_client.ReadUInt64(address);
                             break;
                         case 8:
-                            result = client.ReadFloat(address);
+                            result = modbus_client.ReadFloat(address);
                             break;
                         case 9:
-                            result = client.ReadDouble(address);
+                            result = modbus_client.ReadDouble(address);
                             break;
                     }
 
                     if (result.IsSucceed)
                     {
                         AppendText($"[read {address?.Trim()} success]：{result.Value}");
-                        mqtt_async_publish(register_index, ("" + result.Value));
+                        mqtt_async_publish(topic, ("" + result.Value), client);
                     }
                     else
                     {
@@ -214,63 +224,24 @@ namespace IoTClient.Tool.Controls
                 AppendText($"Read failed : {ex.Message}");
             }
         }
-        private async void mqtt_async_publish(int register_index, string payload)
+        private async void mqtt_async_publish(string topic, string payload, IManagedMqttClient client)
         {
-            switch (register_index)
-            {
-                case 0:
-                    topic1 = mqtt_topic_box_1.Text?.Trim();
-                    break;
-                case 1:
-                    topic1 = mqtt_topic_box_2.Text?.Trim();
-                    break;
-                case 2:
-                    topic1 = mqtt_topic_box_3.Text?.Trim();
-                    break;
-                case 3:
-                    topic1 = mqtt_topic_box_4.Text?.Trim();
-                    break;
-                case 4:
-                    topic1 = mqtt_topic_box_5.Text?.Trim();
-                    break;
-            }
-
-            var result = await mqttClient.PublishAsync(topic1, payload);
-            AppendText($"topic:{topic1} payload:{payload} {result.ReasonCode}");
+            var result = await client.PublishAsync(topic, payload);
+            AppendText($"topic:{topic} payload:{payload} {result.ReasonCode}");
         }
-        private async void mqtt_async_subscribe(string address, int datatype, int register_index)
-        {
-
-            switch (register_index)
-            {
-                case 0:
-                    topic1 = mqtt_topic_box_1.Text?.Trim();
-                    break;
-                case 1:
-                    topic1 = mqtt_topic_box_2.Text?.Trim();
-                    break;
-                case 2:
-                    topic1 = mqtt_topic_box_3.Text?.Trim();
-                    break;
-                case 3:
-                    topic1 = mqtt_topic_box_4.Text?.Trim();
-                    break;
-                case 4:
-                    topic1 = mqtt_topic_box_5.Text?.Trim();
-                    break;
-            }
-
-            if (string.IsNullOrWhiteSpace(topic1))
+        private async void mqtt_async_subscribe(string address, int datatype, string topic, IManagedMqttClient client)
+        { 
+            if (string.IsNullOrWhiteSpace(topic))
             {
                 AppendText("### Please enter Topic ###");
                 return;
             }
 
-            await mqttClient.SubscribeAsync(new TopicFilterBuilder().WithTopic(topic1).Build());
+            await client.SubscribeAsync(new TopicFilterBuilder().WithTopic(topic).Build());
 
             AppendText("### Subscription ###");
 
-            mqttClient.UseApplicationMessageReceivedHandler(ex => {
+            client.UseApplicationMessageReceivedHandler(ex => {
                 AppendText("### Received the news ###");
                 AppendText($"+ Topic = {ex.ApplicationMessage.Topic}");
                 try
@@ -316,17 +287,22 @@ namespace IoTClient.Tool.Controls
                 {
                     registerThread1.Abort();
                 }
-                mqtt_async_subscribe(address_box_1.Text?.Trim(), datatype_cb_1.SelectedIndex, 0);
+                topic1 = mqtt_topic_box_1.Text?.Trim();
+                mqtt_async_subscribe(address_box_1.Text?.Trim(), datatype_cb_1.SelectedIndex, mqtt_topic_box_1.Text?.Trim(), mqttClient);
             }
-            AppendText($"{address_box_1.Text}, {datatype_cb_1.SelectedItem}, {mqtt_topic_box_1.Text}, {interval_1.Text}");
         }
         private async void mode_select_click_2(object sender, EventArgs e)
         {
+            if (server_connect.Enabled == true || mqtt_connect.Enabled == true)
+            {
+                AppendText("### Please Connect Device and MQTT ###");
+                return;
+            }
             if (mode_cb_2.SelectedIndex == 0)
             {
                 //Read
                 interval_2.Enabled = true;
-                await mqttClient.UnsubscribeAsync(new[] { topic2 });
+                await mqttClient2.UnsubscribeAsync(new[] { topic2 });
 
                 if (registerThread2 is null)
                 {
@@ -347,17 +323,22 @@ namespace IoTClient.Tool.Controls
                 {
                     registerThread2.Abort();
                 }
-                mqtt_async_subscribe(address_box_2.Text?.Trim(), datatype_cb_2.SelectedIndex, 1);
+                topic2 = mqtt_topic_box_2.Text?.Trim();
+                mqtt_async_subscribe(address_box_2.Text?.Trim(), datatype_cb_2.SelectedIndex, mqtt_topic_box_2.Text?.Trim(), mqttClient2);
             }
-            AppendText($"{address_box_2.Text}, {datatype_cb_2.SelectedItem}, {mqtt_topic_box_2.Text}, {interval_2.Text}");
         }
         private async void mode_select_click_3(object sender, EventArgs e)
         {
+            if (server_connect.Enabled == true || mqtt_connect.Enabled == true)
+            {
+                AppendText("### Please Connect Device and MQTT ###");
+                return;
+            }
             if (mode_cb_3.SelectedIndex == 0)
             {
                 //Read
                 interval_3.Enabled = true;
-                await mqttClient.UnsubscribeAsync(new[] { topic3 });
+                await mqttClient3.UnsubscribeAsync(new[] { topic3 });
 
                 if (registerThread3 is null)
                 {
@@ -378,17 +359,22 @@ namespace IoTClient.Tool.Controls
                 {
                     registerThread3.Abort();
                 }
-                mqtt_async_subscribe(address_box_3.Text?.Trim(), datatype_cb_3.SelectedIndex, 2);
-            }
-            AppendText($"{address_box_3.Text}, {datatype_cb_3.SelectedItem}, {mqtt_topic_box_3.Text}, {interval_3.Text}");
+                topic3 = mqtt_topic_box_3.Text?.Trim();
+                mqtt_async_subscribe(address_box_3.Text?.Trim(), datatype_cb_3.SelectedIndex, mqtt_topic_box_3.Text?.Trim(), mqttClient3);
+            }            
         }
         private async void mode_select_click_4(object sender, EventArgs e)
         {
+            if (server_connect.Enabled == true || mqtt_connect.Enabled == true)
+            {
+                AppendText("### Please Connect Device and MQTT ###");
+                return;
+            }
             if (mode_cb_4.SelectedIndex == 0)
             {
                 //Read
                 interval_4.Enabled = true;
-                await mqttClient.UnsubscribeAsync(new[] { topic4 });
+                await mqttClient4.UnsubscribeAsync(new[] { topic4 });
 
                 if (registerThread4 is null)
                 {
@@ -409,17 +395,22 @@ namespace IoTClient.Tool.Controls
                 {
                     registerThread4.Abort();
                 }
-                mqtt_async_subscribe(address_box_4.Text?.Trim(), datatype_cb_4.SelectedIndex, 3);
-            }
-            AppendText($"{address_box_4.Text}, {datatype_cb_4.SelectedItem}, {mqtt_topic_box_4.Text}, {interval_4.Text}");
+                topic4 = mqtt_topic_box_4.Text?.Trim();
+                mqtt_async_subscribe(address_box_4.Text?.Trim(), datatype_cb_4.SelectedIndex, mqtt_topic_box_4.Text?.Trim(), mqttClient4);
+            }            
         }
         private async void mode_select_click_5(object sender, EventArgs e)
         {
+            if (server_connect.Enabled == true || mqtt_connect.Enabled == true)
+            {
+                AppendText("### Please Connect Device and MQTT ###");
+                return;
+            }
             if (mode_cb_5.SelectedIndex == 0)
             {
                 //Read
                 interval_5.Enabled = true;
-                await mqttClient.UnsubscribeAsync(new[] { topic5 });
+                await mqttClient5.UnsubscribeAsync(new[] { topic5 });
 
                 if (registerThread5 is null)
                 {
@@ -440,9 +431,10 @@ namespace IoTClient.Tool.Controls
                 {
                     registerThread5.Abort();
                 }
-                mqtt_async_subscribe(address_box_5.Text?.Trim(), datatype_cb_5.SelectedIndex, 4);
+                topic5 = mqtt_topic_box_5.Text?.Trim();
+                mqtt_async_subscribe(address_box_5.Text?.Trim(), datatype_cb_5.SelectedIndex, mqtt_topic_box_5.Text?.Trim(), mqttClient5);
             }
-            AppendText($"{address_box_5.Text}, {datatype_cb_5.SelectedItem}, {mqtt_topic_box_5.Text}, {interval_5.Text}");
+            
         }
 
         private async void but_mqtt_server_connect_click(object sender, EventArgs e)
@@ -452,8 +444,28 @@ namespace IoTClient.Tool.Controls
                 mqtt_stop(null, null);
                 var factory = new MqttFactory();
                 mqttClient = factory.CreateManagedMqttClient();
+                mqttClient2 = factory.CreateManagedMqttClient();
+                mqttClient3 = factory.CreateManagedMqttClient();
+                mqttClient4 = factory.CreateManagedMqttClient();
+                mqttClient5 = factory.CreateManagedMqttClient();
                 var mqttClientOptions = new MqttClientOptionsBuilder()
                                  .WithClientId(this.clientID?.Trim())
+                                 .WithTcpServer(mqtt_host_box.Text?.Trim(), int.Parse(mqtt_port_box.Text?.Trim()));
+                //.WithCredentials(txt_UserName.Text, txt_Password.Text);
+                var mqttClientOptions2 = new MqttClientOptionsBuilder()
+                                 .WithClientId(this.clientID2?.Trim())
+                                 .WithTcpServer(mqtt_host_box.Text?.Trim(), int.Parse(mqtt_port_box.Text?.Trim()));
+                //.WithCredentials(txt_UserName.Text, txt_Password.Text);
+                var mqttClientOptions3 = new MqttClientOptionsBuilder()
+                                 .WithClientId(this.clientID3?.Trim())
+                                 .WithTcpServer(mqtt_host_box.Text?.Trim(), int.Parse(mqtt_port_box.Text?.Trim()));
+                //.WithCredentials(txt_UserName.Text, txt_Password.Text);
+                var mqttClientOptions4 = new MqttClientOptionsBuilder()
+                                 .WithClientId(this.clientID4?.Trim())
+                                 .WithTcpServer(mqtt_host_box.Text?.Trim(), int.Parse(mqtt_port_box.Text?.Trim()));
+                //.WithCredentials(txt_UserName.Text, txt_Password.Text);
+                var mqttClientOptions5 = new MqttClientOptionsBuilder()
+                                 .WithClientId(this.clientID5?.Trim())
                                  .WithTcpServer(mqtt_host_box.Text?.Trim(), int.Parse(mqtt_port_box.Text?.Trim()));
                 //.WithCredentials(txt_UserName.Text, txt_Password.Text);
 
@@ -461,31 +473,84 @@ namespace IoTClient.Tool.Controls
                             .WithAutoReconnectDelay(TimeSpan.FromSeconds(5))
                             .WithClientOptions(mqttClientOptions.Build())
                             .Build();
+                var options2 = new ManagedMqttClientOptionsBuilder()
+                            .WithAutoReconnectDelay(TimeSpan.FromSeconds(5))
+                            .WithClientOptions(mqttClientOptions2.Build())
+                            .Build();
+                var options3 = new ManagedMqttClientOptionsBuilder()
+                            .WithAutoReconnectDelay(TimeSpan.FromSeconds(5))
+                            .WithClientOptions(mqttClientOptions3.Build())
+                            .Build();
+                var options4 = new ManagedMqttClientOptionsBuilder()
+                            .WithAutoReconnectDelay(TimeSpan.FromSeconds(5))
+                            .WithClientOptions(mqttClientOptions4.Build())
+                            .Build();
+                var options5 = new ManagedMqttClientOptionsBuilder()
+                            .WithAutoReconnectDelay(TimeSpan.FromSeconds(5))
+                            .WithClientOptions(mqttClientOptions5.Build())
+                            .Build();
+
 
                 await mqttClient.StartAsync(options);
+                await mqttClient2.StartAsync(options2);
+                await mqttClient3.StartAsync(options3);
+                await mqttClient4.StartAsync(options4);
+                await mqttClient5.StartAsync(options5);
 
                 mqttClient.UseDisconnectedHandler(ex =>
                 {
                     AppendText("### Server disconnected ###");
                     mqtt_connect.Text = "Connect";
                     mqtt_connect.Enabled = true;
-                });
-
-
-                mqttClient.UseApplicationMessageReceivedHandler(ex =>
+                }).UseConnectedHandler(ex =>
                 {
-                    AppendText("### Received the news ###");
-                    AppendText($"+ Topic = {ex.ApplicationMessage.Topic}");
-                    try
-                    {
-                        AppendText($"+ Payload = {Encoding.UTF8.GetString(ex.ApplicationMessage.Payload)}");
-                    }
-                    catch { }
-                    AppendText($"+ QoS = {ex.ApplicationMessage.QualityOfServiceLevel}");
-                    AppendText($"+ Retain = {ex.ApplicationMessage.Retain}");
+                    AppendText("### Connected to service ###");
+                    mqtt_connect.Text = "Connected";
+                    mqtt_connect.Enabled = false;
                 });
 
-                mqttClient.UseConnectedHandler(ex =>
+                mqttClient2.UseDisconnectedHandler(ex =>
+                {
+                    AppendText("### Server disconnected ###");
+                    mqtt_connect.Text = "Connect";
+                    mqtt_connect.Enabled = true;
+                }).UseConnectedHandler(ex =>
+                {
+                    AppendText("### Connected to service ###");
+                    mqtt_connect.Text = "Connected";
+                    mqtt_connect.Enabled = false;
+                });
+
+                mqttClient3.UseDisconnectedHandler(ex =>
+                {
+                    AppendText("### Server disconnected ###");
+                    mqtt_connect.Text = "Connect";
+                    mqtt_connect.Enabled = true;
+                }).UseConnectedHandler(ex =>
+                {
+                    AppendText("### Connected to service ###");
+                    mqtt_connect.Text = "Connected";
+                    mqtt_connect.Enabled = false;
+                });
+
+                mqttClient4.UseDisconnectedHandler(ex =>
+                {
+                    AppendText("### Server disconnected ###");
+                    mqtt_connect.Text = "Connect";
+                    mqtt_connect.Enabled = true;
+                }).UseConnectedHandler(ex =>
+                {
+                    AppendText("### Connected to service ###");
+                    mqtt_connect.Text = "Connected";
+                    mqtt_connect.Enabled = false;
+                });
+
+                mqttClient5.UseDisconnectedHandler(ex =>
+                {
+                    AppendText("### Server disconnected ###");
+                    mqtt_connect.Text = "Connect";
+                    mqtt_connect.Enabled = true;
+                }).UseConnectedHandler(ex =>
                 {
                     AppendText("### Connected to service ###");
                     mqtt_connect.Text = "Connected";
@@ -507,10 +572,10 @@ namespace IoTClient.Tool.Controls
                 try
                 {
                     server_connect.Text = "Connecting...";
-                    client?.Close();
-                    client = new ModbusTcpClient(ip_address_box.Text?.Trim(), int.Parse(port_box.Text?.Trim()));
+                    modbus_client?.Close();
+                    modbus_client = new ModbusTcpClient(ip_address_box.Text?.Trim(), int.Parse(port_box.Text?.Trim()));
 
-                    var result = client.Open();
+                    var result = modbus_client.Open();
 
                     if (!result.IsSucceed)
                     {
@@ -561,34 +626,34 @@ namespace IoTClient.Tool.Controls
                     switch (datatype)
                     {
                         case 0:
-                            result = client.ReadCoil(address);
+                            result = modbus_client.ReadCoil(address);
                             break;
                         case 1:
-                            result = client.ReadDiscrete(address);
+                            result = modbus_client.ReadDiscrete(address);
                             break;
                         case 2:
-                            result = client.ReadInt16(address);
+                            result = modbus_client.ReadInt16(address);
                             break;
                         case 3:
-                            result = client.ReadUInt16(address);
+                            result = modbus_client.ReadUInt16(address);
                             break;
                         case 4:
-                            result = client.ReadInt32(address);
+                            result = modbus_client.ReadInt32(address);
                             break;
                         case 5:
-                            result = client.ReadUInt32(address);
+                            result = modbus_client.ReadUInt32(address);
                             break;
                         case 6:
-                            result = client.ReadInt64(address);
+                            result = modbus_client.ReadInt64(address);
                             break;
                         case 7:
-                            result = client.ReadUInt64(address);
+                            result = modbus_client.ReadUInt64(address);
                             break;
                         case 8:
-                            result = client.ReadFloat(address);
+                            result = modbus_client.ReadFloat(address);
                             break;
                         case 9:
-                            result = client.ReadDouble(address);
+                            result = modbus_client.ReadDouble(address);
                             break;
                     }
 

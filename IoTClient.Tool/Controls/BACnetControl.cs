@@ -18,6 +18,7 @@ using IoTClient.Tool.Model;
 using Talk.Linq.Extensions;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using IoTClient.Enums;
+using IoTClient.Clients.Modbus;
 
 namespace IoTClient.Tool.Controls
 {
@@ -47,7 +48,13 @@ namespace IoTClient.Tool.Controls
             datatype_cb_3.SelectedIndex = 0;
             datatype_cb_4.SelectedIndex = 0;
             datatype_cb_5.SelectedIndex = 0;
-            
+
+            server_connect.Enabled = true;
+            server_disconnect.Enabled = false;
+
+            mqtt_connect.Enabled = true;
+            mqtt_disconnect.Enabled = false;
+
             topic1 = topic2 = topic3 = topic4 = topic5 = "";
         }
 
@@ -82,6 +89,7 @@ namespace IoTClient.Tool.Controls
                 //server_connect.Enabled = true;
                 server_connect.Text = "Connect";
                 device_cb.Enabled = true;
+                server_disconnect.Enabled = true;
             });
         }
 
@@ -771,6 +779,19 @@ namespace IoTClient.Tool.Controls
             }
         }
 
+        private async void but_mqtt_server_disconnect_click(object sender, EventArgs e)
+        {
+            mqtt_connect.Text = "Connect";
+            mqtt_connect.Enabled = true;
+            mqtt_disconnect.Enabled = false;
+
+            await mqttClient.StopAsync();
+            await mqttClient2.StopAsync();
+            await mqttClient3.StopAsync();
+            await mqttClient4.StopAsync();
+            await mqttClient5.StopAsync();
+        }
+
         private async void but_mqtt_server_connect_click(object sender, EventArgs e)
         {
             try
@@ -784,24 +805,19 @@ namespace IoTClient.Tool.Controls
                 mqttClient5 = factory.CreateManagedMqttClient();
                 var mqttClientOptions = new MqttClientOptionsBuilder()
                                  .WithClientId(this.clientID?.Trim())
-                                 .WithTcpServer(mqtt_host_box.Text?.Trim(), int.Parse(mqtt_port_box.Text?.Trim()));
-                                 //.WithCredentials(txt_UserName.Text, txt_Password.Text);
+                                 .WithTcpServer(mqtt_host_box.Text?.Trim(), int.Parse(mqtt_port_box.Text?.Trim())).WithCredentials(txt_UserName.Text, txt_Password.Text);
                 var mqttClientOptions2 = new MqttClientOptionsBuilder()
                                  .WithClientId(this.clientID2?.Trim())
-                                 .WithTcpServer(mqtt_host_box.Text?.Trim(), int.Parse(mqtt_port_box.Text?.Trim()));
-                                 //.WithCredentials(txt_UserName.Text, txt_Password.Text);
+                                 .WithTcpServer(mqtt_host_box.Text?.Trim(), int.Parse(mqtt_port_box.Text?.Trim())).WithCredentials(txt_UserName.Text, txt_Password.Text);
                 var mqttClientOptions3 = new MqttClientOptionsBuilder()
                                  .WithClientId(this.clientID3?.Trim())
-                                 .WithTcpServer(mqtt_host_box.Text?.Trim(), int.Parse(mqtt_port_box.Text?.Trim()));
-                                 //.WithCredentials(txt_UserName.Text, txt_Password.Text);
+                                 .WithTcpServer(mqtt_host_box.Text?.Trim(), int.Parse(mqtt_port_box.Text?.Trim())).WithCredentials(txt_UserName.Text, txt_Password.Text);
                 var mqttClientOptions4 = new MqttClientOptionsBuilder()
                                  .WithClientId(this.clientID4?.Trim())
-                                 .WithTcpServer(mqtt_host_box.Text?.Trim(), int.Parse(mqtt_port_box.Text?.Trim()));
-                                 //.WithCredentials(txt_UserName.Text, txt_Password.Text);
+                                 .WithTcpServer(mqtt_host_box.Text?.Trim(), int.Parse(mqtt_port_box.Text?.Trim())).WithCredentials(txt_UserName.Text, txt_Password.Text);
                 var mqttClientOptions5 = new MqttClientOptionsBuilder()
                                  .WithClientId(this.clientID5?.Trim())
-                                 .WithTcpServer(mqtt_host_box.Text?.Trim(), int.Parse(mqtt_port_box.Text?.Trim()));
-                                 //.WithCredentials(txt_UserName.Text, txt_Password.Text);
+                                 .WithTcpServer(mqtt_host_box.Text?.Trim(), int.Parse(mqtt_port_box.Text?.Trim())).WithCredentials(txt_UserName.Text, txt_Password.Text);
 
                 var options = new ManagedMqttClientOptionsBuilder()
                             .WithAutoReconnectDelay(TimeSpan.FromSeconds(5))
@@ -841,6 +857,7 @@ namespace IoTClient.Tool.Controls
                     AppendText("### Connected to service ###");
                     mqtt_connect.Text = "Connected";
                     mqtt_connect.Enabled = false;
+                    mqtt_disconnect.Enabled = true;
                 });
 
                 mqttClient2.UseDisconnectedHandler(ex =>
@@ -853,6 +870,7 @@ namespace IoTClient.Tool.Controls
                     AppendText("### Connected to service ###");
                     mqtt_connect.Text = "Connected";
                     mqtt_connect.Enabled = false;
+                    mqtt_disconnect.Enabled = true;
                 });
 
                 mqttClient3.UseDisconnectedHandler(ex =>
@@ -865,10 +883,12 @@ namespace IoTClient.Tool.Controls
                     AppendText("### Connected to service ###");
                     mqtt_connect.Text = "Connected";
                     mqtt_connect.Enabled = false;
+                    mqtt_disconnect.Enabled = true;
                 });
 
                 mqttClient4.UseDisconnectedHandler(ex =>
                 {
+                    
                     AppendText("### Server disconnected ###");
                     mqtt_connect.Text = "Connect";
                     mqtt_connect.Enabled = true;
@@ -877,6 +897,7 @@ namespace IoTClient.Tool.Controls
                     AppendText("### Connected to service ###");
                     mqtt_connect.Text = "Connected";
                     mqtt_connect.Enabled = false;
+                    mqtt_disconnect.Enabled = true;
                 });
 
                 mqttClient5.UseDisconnectedHandler(ex =>
@@ -889,6 +910,7 @@ namespace IoTClient.Tool.Controls
                     AppendText("### Connected to service ###");
                     mqtt_connect.Text = "Connected";
                     mqtt_connect.Enabled = false;
+                    mqtt_disconnect.Enabled = true;
                 });
             }
             catch (Exception ex)
@@ -897,6 +919,17 @@ namespace IoTClient.Tool.Controls
                 mqtt_connect.Enabled = true;
                 mqtt_connect.Text = "Connect";
             }
+        }
+
+        private void but_server_disconnect_click(object sender, EventArgs e)
+        {
+            devicesList = new List<BacNode>();
+            device_cb.Items.Clear();
+            Bacnet_client?.Dispose();
+            server_connect.Text = "Connect";
+            server_connect.Enabled = true;
+            server_disconnect.Enabled = false;
+            AppendText($"Fin Server Connection Closed");
         }
 
         private void AppendText(string content)

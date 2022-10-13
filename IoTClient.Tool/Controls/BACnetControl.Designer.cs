@@ -88,12 +88,18 @@
             this.mqtt_host_box = new System.Windows.Forms.TextBox();
             this.server_connect = new System.Windows.Forms.Button();
             this.device_cb = new System.Windows.Forms.ComboBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.txt_Password = new System.Windows.Forms.TextBox();
+            this.txt_UserName = new System.Windows.Forms.TextBox();
+            this.mqtt_disconnect = new System.Windows.Forms.Button();
+            this.server_disconnect = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(853, 167);
+            this.label25.Location = new System.Drawing.Point(915, 167);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(65, 16);
             this.label25.TabIndex = 264;
@@ -101,7 +107,7 @@
             // 
             // interval_2
             // 
-            this.interval_2.Location = new System.Drawing.Point(924, 164);
+            this.interval_2.Location = new System.Drawing.Point(986, 164);
             this.interval_2.Name = "interval_2";
             this.interval_2.Size = new System.Drawing.Size(75, 22);
             this.interval_2.TabIndex = 263;
@@ -110,7 +116,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(616, 167);
+            this.label26.Location = new System.Drawing.Point(653, 167);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(84, 16);
             this.label26.TabIndex = 262;
@@ -145,7 +151,7 @@
             // 
             // linechart_2
             // 
-            this.linechart_2.Location = new System.Drawing.Point(1020, 158);
+            this.linechart_2.Location = new System.Drawing.Point(1097, 158);
             this.linechart_2.Name = "linechart_2";
             this.linechart_2.Size = new System.Drawing.Size(105, 35);
             this.linechart_2.TabIndex = 258;
@@ -155,11 +161,11 @@
             // 
             // mqtt_topic_box_2
             // 
-            this.mqtt_topic_box_2.Location = new System.Drawing.Point(706, 164);
+            this.mqtt_topic_box_2.Location = new System.Drawing.Point(750, 164);
             this.mqtt_topic_box_2.Name = "mqtt_topic_box_2";
             this.mqtt_topic_box_2.Size = new System.Drawing.Size(132, 22);
             this.mqtt_topic_box_2.TabIndex = 257;
-            this.mqtt_topic_box_2.Text = "From 4";
+            this.mqtt_topic_box_2.Text = "topic2";
             // 
             // mode_cb_2
             // 
@@ -202,7 +208,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(853, 263);
+            this.label20.Location = new System.Drawing.Point(915, 263);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(65, 16);
             this.label20.TabIndex = 253;
@@ -210,7 +216,7 @@
             // 
             // interval_4
             // 
-            this.interval_4.Location = new System.Drawing.Point(924, 260);
+            this.interval_4.Location = new System.Drawing.Point(986, 260);
             this.interval_4.Name = "interval_4";
             this.interval_4.Size = new System.Drawing.Size(75, 22);
             this.interval_4.TabIndex = 252;
@@ -219,7 +225,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(616, 263);
+            this.label21.Location = new System.Drawing.Point(653, 263);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(84, 16);
             this.label21.TabIndex = 251;
@@ -254,7 +260,7 @@
             // 
             // linechart_4
             // 
-            this.linechart_4.Location = new System.Drawing.Point(1020, 254);
+            this.linechart_4.Location = new System.Drawing.Point(1097, 254);
             this.linechart_4.Name = "linechart_4";
             this.linechart_4.Size = new System.Drawing.Size(105, 35);
             this.linechart_4.TabIndex = 247;
@@ -264,11 +270,11 @@
             // 
             // mqtt_topic_box_4
             // 
-            this.mqtt_topic_box_4.Location = new System.Drawing.Point(706, 260);
+            this.mqtt_topic_box_4.Location = new System.Drawing.Point(750, 260);
             this.mqtt_topic_box_4.Name = "mqtt_topic_box_4";
             this.mqtt_topic_box_4.Size = new System.Drawing.Size(132, 22);
             this.mqtt_topic_box_4.TabIndex = 246;
-            this.mqtt_topic_box_4.Text = "From 4";
+            this.mqtt_topic_box_4.Text = "topic4";
             // 
             // mode_cb_4
             // 
@@ -311,7 +317,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(853, 215);
+            this.label15.Location = new System.Drawing.Point(915, 215);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(65, 16);
             this.label15.TabIndex = 242;
@@ -319,7 +325,7 @@
             // 
             // interval_3
             // 
-            this.interval_3.Location = new System.Drawing.Point(924, 212);
+            this.interval_3.Location = new System.Drawing.Point(986, 212);
             this.interval_3.Name = "interval_3";
             this.interval_3.Size = new System.Drawing.Size(75, 22);
             this.interval_3.TabIndex = 241;
@@ -328,7 +334,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(616, 215);
+            this.label16.Location = new System.Drawing.Point(653, 215);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(84, 16);
             this.label16.TabIndex = 240;
@@ -363,7 +369,7 @@
             // 
             // linechart_3
             // 
-            this.linechart_3.Location = new System.Drawing.Point(1020, 206);
+            this.linechart_3.Location = new System.Drawing.Point(1097, 206);
             this.linechart_3.Name = "linechart_3";
             this.linechart_3.Size = new System.Drawing.Size(105, 35);
             this.linechart_3.TabIndex = 236;
@@ -373,11 +379,11 @@
             // 
             // mqtt_topic_box_3
             // 
-            this.mqtt_topic_box_3.Location = new System.Drawing.Point(706, 212);
+            this.mqtt_topic_box_3.Location = new System.Drawing.Point(750, 212);
             this.mqtt_topic_box_3.Name = "mqtt_topic_box_3";
             this.mqtt_topic_box_3.Size = new System.Drawing.Size(132, 22);
             this.mqtt_topic_box_3.TabIndex = 235;
-            this.mqtt_topic_box_3.Text = "From 4";
+            this.mqtt_topic_box_3.Text = "topic3";
             // 
             // mode_cb_3
             // 
@@ -420,7 +426,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(853, 311);
+            this.label10.Location = new System.Drawing.Point(915, 311);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(65, 16);
             this.label10.TabIndex = 231;
@@ -428,7 +434,7 @@
             // 
             // interval_5
             // 
-            this.interval_5.Location = new System.Drawing.Point(924, 308);
+            this.interval_5.Location = new System.Drawing.Point(986, 308);
             this.interval_5.Name = "interval_5";
             this.interval_5.Size = new System.Drawing.Size(75, 22);
             this.interval_5.TabIndex = 230;
@@ -437,7 +443,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(616, 311);
+            this.label11.Location = new System.Drawing.Point(653, 311);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(84, 16);
             this.label11.TabIndex = 229;
@@ -472,7 +478,7 @@
             // 
             // linechart_5
             // 
-            this.linechart_5.Location = new System.Drawing.Point(1020, 302);
+            this.linechart_5.Location = new System.Drawing.Point(1097, 302);
             this.linechart_5.Name = "linechart_5";
             this.linechart_5.Size = new System.Drawing.Size(105, 35);
             this.linechart_5.TabIndex = 225;
@@ -482,11 +488,11 @@
             // 
             // mqtt_topic_box_5
             // 
-            this.mqtt_topic_box_5.Location = new System.Drawing.Point(706, 308);
+            this.mqtt_topic_box_5.Location = new System.Drawing.Point(750, 308);
             this.mqtt_topic_box_5.Name = "mqtt_topic_box_5";
             this.mqtt_topic_box_5.Size = new System.Drawing.Size(132, 22);
             this.mqtt_topic_box_5.TabIndex = 224;
-            this.mqtt_topic_box_5.Text = "From 4";
+            this.mqtt_topic_box_5.Text = "topic5";
             // 
             // mode_cb_5
             // 
@@ -529,7 +535,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(853, 119);
+            this.label9.Location = new System.Drawing.Point(915, 119);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(65, 16);
             this.label9.TabIndex = 220;
@@ -537,7 +543,7 @@
             // 
             // interval_1
             // 
-            this.interval_1.Location = new System.Drawing.Point(924, 116);
+            this.interval_1.Location = new System.Drawing.Point(986, 116);
             this.interval_1.Name = "interval_1";
             this.interval_1.Size = new System.Drawing.Size(75, 22);
             this.interval_1.TabIndex = 219;
@@ -546,7 +552,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(886, 28);
+            this.label8.Location = new System.Drawing.Point(855, 28);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(31, 16);
             this.label8.TabIndex = 218;
@@ -555,7 +561,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(616, 119);
+            this.label7.Location = new System.Drawing.Point(653, 119);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(84, 16);
             this.label7.TabIndex = 217;
@@ -564,7 +570,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(691, 28);
+            this.label6.Location = new System.Drawing.Point(660, 28);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 16);
             this.label6.TabIndex = 216;
@@ -600,7 +606,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(170, 28);
+            this.label2.Location = new System.Drawing.Point(59, 28);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 16);
             this.label2.TabIndex = 212;
@@ -613,12 +619,12 @@
             this.txt_content.Multiline = true;
             this.txt_content.Name = "txt_content";
             this.txt_content.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txt_content.Size = new System.Drawing.Size(1140, 400);
+            this.txt_content.Size = new System.Drawing.Size(1185, 400);
             this.txt_content.TabIndex = 210;
             // 
             // linechart_1
             // 
-            this.linechart_1.Location = new System.Drawing.Point(1020, 110);
+            this.linechart_1.Location = new System.Drawing.Point(1097, 110);
             this.linechart_1.Name = "linechart_1";
             this.linechart_1.Size = new System.Drawing.Size(105, 35);
             this.linechart_1.TabIndex = 209;
@@ -628,11 +634,11 @@
             // 
             // mqtt_topic_box_1
             // 
-            this.mqtt_topic_box_1.Location = new System.Drawing.Point(706, 116);
+            this.mqtt_topic_box_1.Location = new System.Drawing.Point(750, 116);
             this.mqtt_topic_box_1.Name = "mqtt_topic_box_1";
             this.mqtt_topic_box_1.Size = new System.Drawing.Size(132, 22);
             this.mqtt_topic_box_1.TabIndex = 208;
-            this.mqtt_topic_box_1.Text = "From 4";
+            this.mqtt_topic_box_1.Text = "topic1";
             // 
             // mode_cb_1
             // 
@@ -674,7 +680,7 @@
             // 
             // mqtt_connect
             // 
-            this.mqtt_connect.Location = new System.Drawing.Point(1017, 19);
+            this.mqtt_connect.Location = new System.Drawing.Point(986, 19);
             this.mqtt_connect.Name = "mqtt_connect";
             this.mqtt_connect.Size = new System.Drawing.Size(105, 35);
             this.mqtt_connect.TabIndex = 204;
@@ -684,7 +690,7 @@
             // 
             // mqtt_port_box
             // 
-            this.mqtt_port_box.Location = new System.Drawing.Point(924, 25);
+            this.mqtt_port_box.Location = new System.Drawing.Point(893, 25);
             this.mqtt_port_box.Name = "mqtt_port_box";
             this.mqtt_port_box.Size = new System.Drawing.Size(75, 22);
             this.mqtt_port_box.TabIndex = 203;
@@ -692,7 +698,7 @@
             // 
             // mqtt_host_box
             // 
-            this.mqtt_host_box.Location = new System.Drawing.Point(778, 25);
+            this.mqtt_host_box.Location = new System.Drawing.Point(747, 25);
             this.mqtt_host_box.Name = "mqtt_host_box";
             this.mqtt_host_box.Size = new System.Drawing.Size(101, 22);
             this.mqtt_host_box.TabIndex = 202;
@@ -700,7 +706,7 @@
             // 
             // server_connect
             // 
-            this.server_connect.Location = new System.Drawing.Point(494, 19);
+            this.server_connect.Location = new System.Drawing.Point(383, 19);
             this.server_connect.Name = "server_connect";
             this.server_connect.Size = new System.Drawing.Size(105, 35);
             this.server_connect.TabIndex = 201;
@@ -711,15 +717,73 @@
             // device_cb
             // 
             this.device_cb.FormattingEnabled = true;
-            this.device_cb.Location = new System.Drawing.Point(242, 25);
+            this.device_cb.Location = new System.Drawing.Point(131, 25);
             this.device_cb.Name = "device_cb";
             this.device_cb.Size = new System.Drawing.Size(201, 24);
             this.device_cb.TabIndex = 265;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(599, 68);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(70, 16);
+            this.label31.TabIndex = 269;
+            this.label31.Text = "Username";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(795, 68);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(67, 16);
+            this.label30.TabIndex = 268;
+            this.label30.Text = "Password";
+            // 
+            // txt_Password
+            // 
+            this.txt_Password.Location = new System.Drawing.Point(868, 65);
+            this.txt_Password.Name = "txt_Password";
+            this.txt_Password.Size = new System.Drawing.Size(100, 22);
+            this.txt_Password.TabIndex = 267;
+            // 
+            // txt_UserName
+            // 
+            this.txt_UserName.Location = new System.Drawing.Point(675, 65);
+            this.txt_UserName.Name = "txt_UserName";
+            this.txt_UserName.Size = new System.Drawing.Size(100, 22);
+            this.txt_UserName.TabIndex = 266;
+            // 
+            // mqtt_disconnect
+            // 
+            this.mqtt_disconnect.Location = new System.Drawing.Point(1097, 19);
+            this.mqtt_disconnect.Name = "mqtt_disconnect";
+            this.mqtt_disconnect.Size = new System.Drawing.Size(105, 35);
+            this.mqtt_disconnect.TabIndex = 271;
+            this.mqtt_disconnect.Text = "Disconnect";
+            this.mqtt_disconnect.UseVisualStyleBackColor = true;
+            this.mqtt_disconnect.Click += new System.EventHandler(this.but_mqtt_server_disconnect_click);
+            // 
+            // server_disconnect
+            // 
+            this.server_disconnect.Location = new System.Drawing.Point(494, 19);
+            this.server_disconnect.Name = "server_disconnect";
+            this.server_disconnect.Size = new System.Drawing.Size(105, 35);
+            this.server_disconnect.TabIndex = 270;
+            this.server_disconnect.Text = "Disconnect";
+            this.server_disconnect.UseVisualStyleBackColor = true;
+            this.server_disconnect.Click += new System.EventHandler(this.but_server_disconnect_click);
             // 
             // BACnetControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.mqtt_disconnect);
+            this.Controls.Add(this.server_disconnect);
+            this.Controls.Add(this.label31);
+            this.Controls.Add(this.label30);
+            this.Controls.Add(this.txt_Password);
+            this.Controls.Add(this.txt_UserName);
             this.Controls.Add(this.device_cb);
             this.Controls.Add(this.label25);
             this.Controls.Add(this.interval_2);
@@ -786,7 +850,7 @@
             this.Controls.Add(this.server_connect);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "BACnetControl";
-            this.Size = new System.Drawing.Size(1175, 770);
+            this.Size = new System.Drawing.Size(1220, 770);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -858,5 +922,11 @@
         private System.Windows.Forms.TextBox mqtt_host_box;
         private System.Windows.Forms.Button server_connect;
         private System.Windows.Forms.ComboBox device_cb;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox txt_Password;
+        private System.Windows.Forms.TextBox txt_UserName;
+        private System.Windows.Forms.Button mqtt_disconnect;
+        private System.Windows.Forms.Button server_disconnect;
     }
 }

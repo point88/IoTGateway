@@ -61,7 +61,7 @@
             this.tabContorl.Multiline = true;
             this.tabContorl.Name = "tabContorl";
             this.tabContorl.SelectedIndex = 0;
-            this.tabContorl.Size = new System.Drawing.Size(1192, 813);
+            this.tabContorl.Size = new System.Drawing.Size(1232, 813);
             this.tabContorl.TabIndex = 2;
             this.tabContorl.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -71,7 +71,7 @@
             this.ModbusTcp.Margin = new System.Windows.Forms.Padding(4);
             this.ModbusTcp.Name = "ModbusTcp";
             this.ModbusTcp.Padding = new System.Windows.Forms.Padding(4);
-            this.ModbusTcp.Size = new System.Drawing.Size(1184, 784);
+            this.ModbusTcp.Size = new System.Drawing.Size(1224, 784);
             this.ModbusTcp.TabIndex = 0;
             this.ModbusTcp.Text = "ModbusTcp";
             this.ModbusTcp.UseVisualStyleBackColor = true;
@@ -100,7 +100,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1192, 813);
+            this.ClientSize = new System.Drawing.Size(1232, 813);
             this.Controls.Add(this.tabContorl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
